@@ -1,5 +1,4 @@
 "use client"
-import Image from 'next/image'
 import HorizontalBar from './htlc_bar'
 import { useEffect, useState } from 'react'
 import ExponentialSlider from './bitcoinpriceslider'
@@ -25,8 +24,8 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center mx-auto mt-8 w-4/5">
-        <div>Post Bitcoinization</div>
-        <div>Visualizing Bitcoin's inevitable high-fee environment</div>
+        <div>{"Post Bitcoinization"}</div>
+        <div>{"Visualizing Bitcoin's inevitable high-fee environment"}</div>
         <div className="w-full">
           <label>Onchain Fees (sats/vByte): </label>
           <input type="text" value={blockFeeRate} onChange={(e) => setBlockFeeRate(e.target.value)} className="text-black rounded-md" placeholder="Enter block fee in sats/vbyte" />
@@ -44,7 +43,17 @@ export default function Home() {
 
         <div className="w-full">
           <label>Bitcoin price (present-day purchasing power): </label>
-          <input type="text" value={"$" + Math.round(bitcoinPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} className="text-black" />
+          <input
+            type="text"
+            value={"$" + Math.round(bitcoinPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            onChange={(e) => {
+              // You'll need to parse the value back into a number, removing the dollar sign and commas
+              const value = e.target.value.replace(/[^0-9.-]+/g, "");
+              setBitcoinPrice(Number(value));
+            }}
+            className="text-black"
+          />
+
           <ExponentialSlider value={bitcoinPrice} onChange={setBitcoinPrice} />
         </div>
         <div>
