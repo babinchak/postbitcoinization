@@ -26,7 +26,7 @@ const HorizontalBar = ({ leftPercentage }) => {
             .attr('fill', 'green');
     }, [leftPercentage]);
 
-    return <svg ref={ref} width="500" height="50" />;
+    return <svg ref={ref} width="500" height="50" className="rounded-lg mt-4" />;
 };
 
 export default HorizontalBar;
